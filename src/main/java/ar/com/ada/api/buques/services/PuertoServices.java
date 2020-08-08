@@ -28,4 +28,7 @@ public class PuertoService {
     public List<Puerto> listarPuertos() {
         return puertoRepository.findAll();
     }
+    public Puerto buscarPorNumero(Integer numeroPuerto) {
+        return puertoRepository.findByNumero(numeroPuerto);
+    }
 }

@@ -44,5 +44,39 @@ public class BuquesController {
 
         return ResponseEntity.ok(listaBuques);
     }
+    @PostMapping("/buques/{id}/viajes")
+    public ResponseEntity<GenericResponse> crearViaje(@PathVariable String id, @RequestBody ViajeRequest infoViaje) {
 
+        boolean resultado = buqueService.crearViaje(id, infoViaje.fechaViaje, infoViaje.fechaSalida,
+                infoViaje.fechaLlegada);
+        GenericResponse resp = new GenericResponse();
+
+        if (resultado) {
+            resp.isOk = true;
+            resp.message = "El viaje se grabo correctamente";
+            return ResponseEntity.ok(resp);
+        }
+
+        resp.isOk = false;
+        resp.message = "No se pudo grabar el viaje";
+        return ResponseEntity.badRequest().body(resp);
+    }
+    @PostMapping("/buques/{id}/viajes/contenedores")
+    public ResponseEntity<GenericResponse> postMethodName(@PathVariable String id,
+            @RequestBody ContenedorRequest contenedor) {
+
+        boolean resultado = buqueService.cargarContenedor(id, contenedor.fechaViaje, contenedor.contenedorId,
+                contenedor.peso, contenedor.numeroPuerto);
+        GenericResponse resp = new GenericResponse();
+
+        if (resultado) {
+            resp.isOk = true;
+            resp.message = "El contenedor se cargo correctamente";
+            return ResponseEntity.ok(resp);
+        }
+
+        resp.isOk = false;
+        resp.message = "No se pudo cargar el contenedor. Supero su capacidad maxima";
+        return ResponseEntity.badRequest().body(resp);
+    }
 }

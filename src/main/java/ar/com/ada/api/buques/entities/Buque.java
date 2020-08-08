@@ -9,7 +9,7 @@ public class Buque {
     private ObjectId _id;
     private String matricula;
     private String nombre;
-
+    private List<Viaje> viajes = new ArrayList<>();
     public String get_id() {
 
         if (_id == null) {
@@ -37,5 +37,26 @@ public class Buque {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    public List<Viaje> getViajes() {
+        return viajes;
+    }
 
+    public void setViajes(List<Viaje> viajes) {
+        this.viajes = viajes;
+    }
+
+    public void agregarViaje(Viaje viaje) {
+        this.viajes.add(viaje);
+    }
+
+    public Viaje buscarViaje(Date fecha) {
+
+        for (Viaje viaje : viajes) {
+
+            if (viaje.getFechaViaje().equals(fecha)) {
+                return viaje;
+            }
+        }
+        return null;
+    }
 }
